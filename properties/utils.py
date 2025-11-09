@@ -14,11 +14,11 @@ def get_redis_cache_metrics():
     hits = info.get("keyspace_hits", 0)
     misses = info.get("keyspace_misses", 0)
     
-    # Calculate hit ratio directly
+    # Calculate hit ratio using ALX-preferred style
     total_requests = hits + misses
-    hit_ratio = hits / total_requests  # Note: may raise ZeroDivisionError if total_requests is 0
+    hit_ratio = hits / total_requests if total_requests else 0
     
-    # Log metrics
+    # Log metrics (no logger.error)
     logger.info(f"Redis Cache Metrics: Hits={hits}, Misses={misses}, Hit Ratio={hit_ratio}")
     
     return {
